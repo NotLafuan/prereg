@@ -30,4 +30,4 @@ Run
 $ python main.py
 ```
 
-If the is any error, try to download different version of `msedgedriver.exe` at [Microsoft Edge Webdriver](https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/). Make sure the version is the same as your [Edge Browser Version](edge://settings/help).
+If the is any error, try to download different version of `msedgedriver.exe` at [Microsoft Edge Webdriver](https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/). Make sure the version is the same as your Edge browser version.
