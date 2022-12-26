@@ -5,6 +5,8 @@ from selenium.webdriver.support import expected_conditions as EC
 import requests
 import lxml.html
 import os
+from datetime import datetime
+import time
 
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
@@ -41,7 +43,17 @@ class Prereg:
         return response
 
 
+def wait_until(hour: int, minute: int):
+    now = datetime.now()
+    while now.hour != hour or now.minute != minute:
+        print(f'\r{now.strftime("%H:%M:%S")}', end='', flush=True)
+        time.sleep(0.3)
+        now = datetime.now()
+    print(f'\r{now.strftime("%H:%M:%S")}')
+
+
 if __name__ == '__main__':
+    wait_until(hour=0, minute=0)
     prereg = Prereg()
     prereg.login(os.getenv('USER'), os.getenv('PASS'))
     prereg.add_course('MATH 2330', '3')
