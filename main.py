@@ -47,7 +47,7 @@ def wait_until(hour: int, minute: int):
     now = datetime.now()
     while now.hour != hour or now.minute != minute:
         print(f'\r{now.strftime("%H:%M:%S")}', end='', flush=True)
-        time.sleep(0.3)
+        time.sleep(1)
         now = datetime.now()
     print(f'\r{now.strftime("%H:%M:%S")}')
 
