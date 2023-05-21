@@ -27,37 +27,46 @@ class Prereg:
             self.PHPSESSID = driver.get_cookie('PHPSESSID')['value']
 
     def add_course(self, course_code: str, section: str, print_output: bool = True):
-        url = 'https://prereg1.iium.edu.my/addcourse.php?'
-        payload = {
-            'Course_code': course_code,
-            'Section': section,
-        }
-        headers = {'Cookie': f'PHPSESSID={self.PHPSESSID}'}
-        response = requests.post(url, headers=headers, data=payload)
-        if print_output:
-            print(f'COURSE CODE: {course_code} | SECTION: {section}')
-            tree: lxml.html.HtmlElement = lxml.html.fromstring(response.text)
-            output: lxml.html.HtmlElement = tree.xpath('/html/body/p[2]')[0]
-            print(output.text_content())
-            print()
-        return response
+        try:
+            url = 'https://prereg1.iium.edu.my/addcourse.php?'
+            payload = {
+                'Course_code': course_code,
+                'Section': section,
+            }
+            headers = {'Cookie': f'PHPSESSID={self.PHPSESSID}'}
+            response = requests.post(url, headers=headers, data=payload)
+            if print_output:
+                print(f'COURSE CODE: {course_code} | SECTION: {section}')
+                tree: lxml.html.HtmlElement = lxml.html.fromstring(
+                    response.text)
+                output: lxml.html.HtmlElement = tree.xpath(
+                    '/html/body/p[2]')[0]
+                print(output.text_content())
+                print()
+            return response
+        except Exception as e:
+            print(e)
 
 
-def wait_until(hour: int, minute: int):
-    now = datetime.now()
-    while now.hour != hour or now.minute != minute:
-        print(f'\r{now.strftime("%H:%M:%S")}', end='', flush=True)
-        time.sleep(1)
+def wait_until(hour: int, minute: int, second: int):
+    try:
         now = datetime.now()
-    print(f'\r{now.strftime("%H:%M:%S")}')
+        while now.hour != hour or now.minute != minute or now.second != second:
+            print(f'\r{now.strftime("%H:%M:%S")}', end='', flush=True)
+            time.sleep(1)
+            now = datetime.now()
+        print(f'\r{now.strftime("%H:%M:%S")}')
+    except KeyboardInterrupt:
+        time.sleep(1)
 
 
 if __name__ == '__main__':
-    wait_until(hour=0, minute=0)
+    wait_until(hour=0, minute=0, second=10)
     prereg = Prereg()
     prereg.login(os.getenv('USER'), os.getenv('PASS'))
-    prereg.add_course('MATH 2330', '3')
-    prereg.add_course('MCTA 2102', '1')
-    prereg.add_course('MCTA 2313', '1')
-    prereg.add_course('MCTA 2314', '2')
-    prereg.add_course('MCTA 2315', '2')
+    prereg.add_course('MCTA 3331', '1')
+    prereg.add_course('MCTA 3203', '1')
+    prereg.add_course('MCTA 3352', '2')
+    prereg.add_course('MCTA 3351', '1')
+    prereg.add_course('MCTA 3371', '1')
+    prereg.add_course('UNGS 2380', '12')
