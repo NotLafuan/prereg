@@ -14,8 +14,8 @@ $ pip install -r requirements.txt
 Make a `.env` file containing your username and password.
 
 ```shell
-USER = your username
-PASS = your password
+USER=your_username
+PASS=your_password
 ```
 
 Then replace the `add_course()` line in `main.py` with the course you want to add. The first and second variable is `course_code` and `section` respectively.
